@@ -1,0 +1,1 @@
+this is an Electron App with NG,use this as base code for all

@@ -1,6 +1,9 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
+
+const constants = require('./common/constants.js');
+const events = require('./common/events.js');
 
 let mainWindow;
 
@@ -37,4 +40,11 @@ app.on('window-all-closed', function () {
 
 app.on('activate', function () {
     if (mainWindow === null) createWindow();
+});
+
+console.dir(constants.ipcChannels.test);
+
+ipcMain.on('test-send', function (a, b) {
+    console.log('fromFE', b);
+    a.sender.send('test-reply', { name: 'FROM BE' });
 });
